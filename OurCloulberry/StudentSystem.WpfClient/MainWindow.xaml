@@ -1,0 +1,14 @@
+﻿<Window x:Class="StudentSystem.WpfClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        Title="MainWindow" Background="AliceBlue" WindowState="Maximized"
+        DataContext="{Binding Source={StaticResource AppConfiguration}}">
+    <telerik:RadBusyIndicator x:Name="BIndicator" IsBusy="{Binding IsBusy}" BusyContent="{Binding IsBusyMessage}">
+        <Grid>
+            <Frame Source="{Binding NavigationSource}" NavigationUIVisibility="Hidden">
+
+            </Frame>
+        </Grid>
+    </telerik:RadBusyIndicator>
+</Window>

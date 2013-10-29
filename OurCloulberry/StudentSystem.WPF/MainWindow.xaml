@@ -1,0 +1,45 @@
+﻿<Window xmlns:views="clr-namespace:StudentSystem.WPF.Views"
+        x:Class="StudentSystem.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModel="clr-namespace:StudentSystem.WPF.ViewModels"
+        xmlns:converter="clr-namespace:StudentSystem.WPF.Converter"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <viewModel:AppViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate            
+            DataType="{x:Type viewModel:LoginRegisterFormViewModel}">
+            <views:LoginRegisterFormView/>
+        </DataTemplate>
+        <!--<DataTemplate DataType="{x:Type ViewModel:TodoListsViewModel}">
+            <Views:TodolistsView/>
+        </DataTemplate>-->
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Window.Resources>
+    <Grid>
+        <DockPanel>
+            <StackPanel Name="HeaderContainer" Orientation="Horizontal"
+                        Visibility="{Binding Path=LoggedInUser,Converter={StaticResource BoolToVisibilityConverter}}"
+                        DockPanel.Dock="Top">
+                <ItemsControl ItemsSource="{Binding ViewModels}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding Name}"
+                                    Command="{Binding Path=DataContext.ChangeViewModel, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                    CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Button Command="{Binding Logout}" HorizontalAlignment="Right" Content="Logout"/>
+            </StackPanel>
+            <ContentControl DockPanel.Dock="Bottom" Content="{Binding CurrentViewModel}" />
+        </DockPanel>
+    </Grid>
+</Window>

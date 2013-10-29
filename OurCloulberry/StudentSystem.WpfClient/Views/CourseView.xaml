@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="StudentSystem.WpfClient.Views.CourseView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:behaviors="clr-namespace:StudentSystem.WpfClient.Behavior"
+             xmlns:viewModels="clr-namespace:StudentSystem.WpfClient.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="580">
+    <StackPanel Width="580" Orientation="Horizontal">
+        <StackPanel Width="580" Height="400" Orientation="Vertical" Margin="0,4,0,0">
+            <TextBlock Width="300" Height="30" Margin="-70,0,0,0"><InlineUIContainer BaselineAlignment="Top">
+        			<Label Content="Course Name: "/>
+        		</InlineUIContainer><Run Text=" "/><InlineUIContainer BaselineAlignment="Center">
+        			<TextBlock Text="{Binding Name}" Background="White"/>
+        		</InlineUIContainer></TextBlock>
+            <TextBlock Width="370" Height="30"><InlineUIContainer BaselineAlignment="Top">
+        			<Label Content="Start Date: "/>
+        		</InlineUIContainer><Run Text=" "/><InlineUIContainer BaselineAlignment="Center">
+        			<TextBlock Text="{Binding StartDate}" Background="White"/>
+        		</InlineUIContainer></TextBlock>
+            <TextBlock Width="370" Height="30"><InlineUIContainer BaselineAlignment="Top">
+        			<Label Content="End Date: "/>
+        		</InlineUIContainer><Run Text=" "/><InlineUIContainer BaselineAlignment="Center">
+        			<TextBlock Text="{Binding EndDate}" Background="White"/>
+        		</InlineUIContainer></TextBlock>
+            <TextBlock Width="370" Height="30"><InlineUIContainer BaselineAlignment="Top">
+        			<Label Content="Lectures prer Week: "/>
+        		</InlineUIContainer><Run Text=" "/><InlineUIContainer BaselineAlignment="Center">
+        			<TextBlock Text="{Binding LecturesPerWeek}" Background="White"/>
+        		</InlineUIContainer></TextBlock>
+            <TextBlock Width="370" Height="30"><InlineUIContainer BaselineAlignment="Top">
+        			<Label Content="Sign Up Deadline: "/>
+        		</InlineUIContainer><Run Text=" "/><InlineUIContainer BaselineAlignment="Center">
+        			<TextBlock Text="{Binding SignUpDeadline}" Background="White"/>
+        		</InlineUIContainer></TextBlock>
+            
+            <TextBlock  Padding="110,0,0,0" ><Run Text="Description:"/></TextBlock>
+            
+            <TextBox 
+        		Width="340" Height="50"
+        		ScrollViewer.VerticalScrollBarVisibility="Auto"
+        		AcceptsReturn="True"
+        		TextWrapping="Wrap"
+        		Text="{Binding Description}"/>
+
+            <TextBlock  Padding="110,0,0,0" ><Run Text="Lecture Name:"/></TextBlock>
+
+            <!--<ItemsControl DataContext="{Binding Lectures}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel behaviors:Behaviours.MouseClick="{Binding AddLecture}">
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                            <ItemsControl>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock  Padding="110,0,0,0" ><Run Text="Homework Deadline:"/></TextBlock>
+                                            <TextBlock Text="{Binding HomeworkDeadline}"></TextBlock>
+                                            <TextBlock  Padding="110,0,0,0" ><Run Text="Homework File Name:"/></TextBlock>
+                                            <ItemsControl DataContext="Homeworks">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding FileName}"></TextBlock>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>-->
+
+            <!--<TextBlock DataContext="{Binding Lectures}" Width="370" Height="30"><InlineUIContainer BaselineAlignment="Top">
+        			<Label Content="Course Name: "/>
+        		</InlineUIContainer><Run Text=" "/><InlineUIContainer BaselineAlignment="Center">
+        			<TextBlock Text="{Binding Name}" Background="White"/>
+        		</InlineUIContainer></TextBlock>
+            
+            <TextBlock DataContext="{Binding Lectures}" Width="370" Height="30"><InlineUIContainer BaselineAlignment="Top">
+        			<Label Content="Homework Deadline: "/>
+        		</InlineUIContainer><Run Text=" "/><InlineUIContainer BaselineAlignment="Center">
+        			<TextBlock Text="{Binding HomeworkDeadline}" Background="White"/>
+        		</InlineUIContainer></TextBlock>
+
+            <Button Command="{Binding AddLecture}" 
+                FontSize="15"
+                HorizontalAlignment="Right">Add Course</Button>-->
+
+            <ListView ItemsSource="{Binding Lectures}" 
+        		SelectedValuePath="Name"
+        		Width="460"
+        		HorizontalAlignment="Center"
+        		SelectedIndex="0" >
+                <ListView.View>
+                    <GridView >
+                        <GridViewColumn Width="150" Header="Lecture Name" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Width="150" Header="Homework Deadline" DisplayMemberBinding="{Binding HomeworkDeadline}"/>
+                        <GridViewColumn Width="150" Header="Homework Name">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ItemsControl ItemsSource="{Binding Homeworks}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding FileName}"></TextBlock>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>              
+            </ListView>
+            
+        </StackPanel>
+    </StackPanel>
+</UserControl>
